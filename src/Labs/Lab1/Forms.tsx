@@ -1,3 +1,5 @@
+import OtherFields from "./OtherFields";
+
 export default function Forms() {
   return (
     <div id="wd-forms">
@@ -126,6 +128,7 @@ export default function Forms() {
           </option>
           <option value="FANTASY">Fantasy</option>
         </select>
+        <OtherFields />
       </form>
     </div>
   );
