@@ -31,7 +31,7 @@ export default function Dashboard() {
               <Link
                 className="wd-dashboard-course-link
                            text-decoration-none text-dark"
-                to="/Kanbas/Courses/1234/Home"
+                to="/Kanbas/Courses/2345/Home"
               >
                 <img src="/images/reactjs.jpg" width="100%" height={160} />
                 <div className="card-body">
@@ -51,7 +51,7 @@ export default function Dashboard() {
               <Link
                 className="wd-dashboard-course-link
                            text-decoration-none text-dark"
-                to="/Kanbas/Courses/1234/Home"
+                to="/Kanbas/Courses/3456/Home"
               >
                 <img src="/images/reactjs.jpg" width="100%" height={160} />
                 <div className="card-body">
@@ -71,7 +71,7 @@ export default function Dashboard() {
               <Link
                 className="wd-dashboard-course-link
                            text-decoration-none text-dark"
-                to="/Kanbas/Courses/1234/Home"
+                to="/Kanbas/Courses/4567/Home"
               >
                 <img src="/images/reactjs.jpg" width="100%" height={160} />
                 <div className="card-body">

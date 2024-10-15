@@ -1,12 +1,13 @@
-import { Routes, Route, Navigate } from "react-router";
+import { Routes, Route, Navigate, useParams } from "react-router";
 import Home from "./Home";
 import Modules from "./Modules";
 import CoursesNavigation from "./Navigation";
 
 export default function Courses() {
+  const { cid } = useParams();
   return (
     <div id="wd-courses">
-      <h2>Course 1234</h2>
+      <h2>Course {cid}</h2>
       <div className="d-flex">
         <div>
           <CoursesNavigation />
