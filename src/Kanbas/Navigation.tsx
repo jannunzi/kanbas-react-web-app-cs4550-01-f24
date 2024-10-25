@@ -18,7 +18,7 @@ export default function KanbasNavigation() {
   return (
     <div
       style={{ width: 120 }}
-      className="d-none d-md-block bg-black position-fixed bottom-0 top-0 z-2 list-group rounded-0 border-0"
+      className="d-none d-sm-block bg-black position-fixed bottom-0 top-0 z-2 list-group rounded-0 border-0"
       id="wd-kanbas-navigation"
     >
       <a
