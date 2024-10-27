@@ -1,11 +1,15 @@
+import { useSelector } from "react-redux";
 import Forms from "./Forms";
 import Lists from "./Lists";
 import Tables from "./Tables";
 
 export default function Lab1() {
+  const { message } = useSelector((store: any) => store.helloReducer);
+
   return (
     <div>
       <h2>Lab 1</h2>
+      <h3>Message: {message}</h3>
       <h3>HTML Examples</h3>
       <div id="wd-h-tag">
         <h4>Heading Tags</h4>

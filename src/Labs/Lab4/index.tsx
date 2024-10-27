@@ -4,7 +4,9 @@ import ClickEvent from "./ClickEvent";
 import Counter from "./Counter";
 import EventObject from "./EventObject";
 import ObjectStateVariable from "./ObjectStateVariable";
+import ParentStateComponent from "./ParentStateComponent";
 import PassingFunctions from "./PassingFunctions";
+import ReduxExamples from "./ReduxExamples";
 import StringStateVariables from "./StringStateVariables";
 
 export default function Lab4() {
@@ -23,6 +25,8 @@ export default function Lab4() {
       <StringStateVariables />
       <ObjectStateVariable />
       <ArrayStateVariable />
+      <ParentStateComponent />
+      <ReduxExamples />
       <br />
       <br />
       <br />
