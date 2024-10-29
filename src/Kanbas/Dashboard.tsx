@@ -1,11 +1,49 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import * as db from "./Database";
-export default function Dashboard() {
-  const courses = db.courses;
-
+export default function Dashboard({
+  courses,
+  course,
+  setCourse,
+  addNewCourse,
+  deleteCourse,
+  updateCourse,
+}: {
+  courses: any[];
+  course: any;
+  setCourse: (course: any) => void;
+  addNewCourse: () => void;
+  deleteCourse: (course: any) => void;
+  updateCourse: () => void;
+}) {
   return (
     <div id="wd-dashboard">
       <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
+      <h5>
+        New Course
+        <input
+          value={course.name}
+          className="form-control mb-2"
+          onChange={(e) => setCourse({ ...course, name: e.target.value })}
+        />
+        <textarea
+          value={course.description}
+          className="form-control"
+          onChange={(e) =>
+            setCourse({ ...course, description: e.target.value })
+          }
+        />
+        <button className="btn btn-primary float-end" onClick={addNewCourse}>
+          Add
+        </button>
+        <button
+          className="btn btn-warning float-end me-2"
+          onClick={updateCourse}
+        >
+          Update
+        </button>
+      </h5>
+      <hr />
       <h2 id="wd-dashboard-published">
         Published Courses ({courses.length})
       </h2>{" "}
@@ -32,6 +70,26 @@ export default function Dashboard() {
                       {course.description}{" "}
                     </p>
                     <button className="btn btn-primary"> Go </button>
+
+                    <button
+                      onClick={(event) => {
+                        event.preventDefault();
+                        deleteCourse(course._id);
+                      }}
+                      className="btn btn-danger float-end"
+                    >
+                      Delete
+                    </button>
+                    <button
+                      id="wd-edit-course-click"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        setCourse(course);
+                      }}
+                      className="btn btn-warning me-2 float-end"
+                    >
+                      Edit
+                    </button>
                   </div>
                 </Link>
               </div>
