@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import * as db from "../../Database";
 import ModuleControlButtons from "./ModuleControlButtons";
 import ModulesControls from "./ModulesControls";
-import { addModule, deleteModule, updateModule, editModule } from "./reducer";
+import {
+  addModule,
+  deleteModule,
+  updateModule,
+  editModule,
+  setModules,
+} from "./reducer";
+import * as courseClient from "../client";
+import * as moduleClient from "./client";
 
 export default function Modules() {
   // const [modules, setModules] = useState<any[]>(db.modules);
@@ -13,21 +21,23 @@ export default function Modules() {
   const dispatch = useDispatch();
 
   const [moduleName, setModuleName] = useState("");
-  // const addModule = () => {
-  //   setModules([
-  //     ...modules,
-  //     {
-  //       _id: new Date().getTime().toString(),
-  //       name: moduleName,
-  //       course: cid,
-  //       lessons: [],
-  //     },
-  //   ]);
-  //   setModuleName("");
-  // };
-  // const deleteModule = (moduleId: string) => {
-  //   setModules(modules.filter((m) => m._id !== moduleId));
-  // };
+  const createModule = async () => {
+    const newModule = await courseClient.createModuleForCourse(cid || "", {
+      name: moduleName,
+      course: cid,
+    });
+    dispatch(addModule(newModule));
+    setModuleName("");
+  };
+  const fetchModules = async () => {
+    const modules = await courseClient.findModulesForCourse(cid || "");
+    dispatch(setModules(modules));
+  };
+  const removeModule = async (moduleId: string) => {
+    const status = await moduleClient.deleteModule(moduleId);
+    dispatch(deleteModule(moduleId));
+    // setModules(modules.filter((m) => m._id !== moduleId));
+  };
   // const editModule = (moduleId: string) => {
   //   setModules(
   //     modules.map((m) => (m._id === moduleId ? { ...m, editing: true } : m))
@@ -37,20 +47,16 @@ export default function Modules() {
   //   setModules(modules.map((m) => (m._id === module._id ? module : m)));
   // };
 
+  useEffect(() => {
+    fetchModules();
+  }, [cid]);
+
   return (
     <div>
       <ModulesControls
         moduleName={moduleName}
         setModuleName={setModuleName}
-        addModule={() => {
-          dispatch(
-            addModule({
-              name: moduleName,
-              course: cid,
-            })
-          );
-          setModuleName("");
-        }}
+        addModule={createModule}
       />
       <br />
       <br />
@@ -80,7 +86,7 @@ export default function Modules() {
                 )}
 
                 <ModuleControlButtons
-                  deleteModule={() => dispatch(deleteModule(module._id))}
+                  deleteModule={(moduleId) => removeModule(moduleId)}
                   moduleId={module._id}
                   editModule={() => dispatch(editModule(module._id))}
                 />

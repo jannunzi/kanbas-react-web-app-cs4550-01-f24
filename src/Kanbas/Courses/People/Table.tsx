@@ -1,13 +1,16 @@
 import { FaUserCircle } from "react-icons/fa";
 import { useParams } from "react-router";
-import * as db from "../../Database";
+import { Link } from "react-router-dom";
+import PeopleDetails from "./Details";
+// import * as db from "../../Database";
 
-export default function PeopleTable() {
-  const { users, enrollments } = db;
-  const { cid } = useParams();
+export default function PeopleTable({ users = [] }: { users?: any[] }) {
+  // const { users, enrollments } = db;
+  // const { cid } = useParams();
 
   return (
     <div id="wd-people-table">
+      <PeopleDetails />
       <table className="table table-striped">
         <thead>
           <tr>
@@ -21,18 +24,23 @@ export default function PeopleTable() {
         </thead>
         <tbody>
           {users
-            .filter((usr) =>
-              enrollments.some(
-                (enrollment) =>
-                  enrollment.user === usr._id && enrollment.course === cid
-              )
-            )
-            .map((user) => (
+            // .filter((usr) =>
+            //   enrollments.some(
+            //     (enrollment) =>
+            //       enrollment.user === usr._id && enrollment.course === cid
+            //   )
+            // )
+            .map((user: any) => (
               <tr>
                 <td className="wd-full-name text-nowrap">
-                  <FaUserCircle className="me-2 fs-1 text-secondary" />
-                  <span className="wd-first-name">{user.firstName}</span>{" "}
-                  <span className="wd-last-name">{user.lastName}</span>
+                  <Link
+                    to={`/Kanbas/Account/Users/${user._id}`}
+                    className="text-decoration-none"
+                  >
+                    <FaUserCircle className="me-2 fs-1 text-secondary" />
+                    <span className="wd-first-name">{user.firstName}</span>
+                    <span className="wd-last-name">{user.lastName}</span>
+                  </Link>
                 </td>
                 <td className="wd-login-id">001234561S</td>
                 <td className="wd-section">S101</td>
