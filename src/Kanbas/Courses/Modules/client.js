@@ -9,3 +9,12 @@ export const deleteModule = async (moduleId) => {
   );
   return response.data;
 };
+
+export const suggestModule = async (courseName, courseDescription, modules) => {
+  const response = await axiosWithCredentials.post(`${MODULES_API}/ai`, {
+    courseName,
+    courseDescription,
+    modules,
+  });
+  return response.data;
+};

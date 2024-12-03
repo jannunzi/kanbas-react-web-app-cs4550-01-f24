@@ -5,10 +5,12 @@ export default function ModulesControls({
   moduleName,
   setModuleName,
   addModule,
+  suggestModule,
 }: {
   moduleName: string;
   setModuleName: (title: string) => void;
   addModule: () => void;
+  suggestModule: () => void;
 }) {
   return (
     <div id="wd-modules-controls" className="text-nowrap">
@@ -20,6 +22,7 @@ export default function ModulesControls({
         <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
         Module
       </button>
+      <button onClick={suggestModule}>Suggest</button>
 
       <ModuleEditor
         dialogTitle="Add Module"

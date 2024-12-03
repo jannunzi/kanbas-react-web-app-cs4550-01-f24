@@ -34,3 +34,10 @@ export const findModulesForCourse = async (courseId: string) => {
   );
   return response.data;
 };
+export const suggestCourse = async (name: string, description: string) => {
+  const response = await axiosWithCredentials.post(`${COURSES_API}/ai`, {
+    name,
+    description,
+  });
+  return response.data;
+};

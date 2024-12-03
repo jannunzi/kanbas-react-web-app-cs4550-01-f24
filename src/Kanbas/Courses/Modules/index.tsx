@@ -14,7 +14,7 @@ import {
 import * as courseClient from "../client";
 import * as moduleClient from "./client";
 
-export default function Modules() {
+export default function Modules({ course }: { course?: any }) {
   // const [modules, setModules] = useState<any[]>(db.modules);
   const { modules } = useSelector((state: any) => state.modulesReducer);
   const { cid } = useParams();
@@ -47,6 +47,21 @@ export default function Modules() {
   //   setModules(modules.map((m) => (m._id === module._id ? module : m)));
   // };
 
+  const suggestModule = async () => {
+    const moduleNames = modules.map((m: any) => m.name);
+    const suggestedModuleName = await moduleClient.suggestModule(
+      course.name,
+      course.description,
+      moduleNames
+    );
+    const newModule = await courseClient.createModuleForCourse(cid || "", {
+      name: suggestedModuleName,
+      course: cid,
+    });
+    dispatch(addModule(newModule));
+    setModuleName("");
+  };
+
   useEffect(() => {
     fetchModules();
   }, [cid]);
@@ -57,6 +72,7 @@ export default function Modules() {
         moduleName={moduleName}
         setModuleName={setModuleName}
         addModule={createModule}
+        suggestModule={suggestModule}
       />
       <br />
       <br />

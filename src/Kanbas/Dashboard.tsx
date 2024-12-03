@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import * as db from "./Database";
+import { IoSparkles } from "react-icons/io5";
+import * as courseClient from "./Courses/client";
 export default function Dashboard({
   courses,
   course,
@@ -22,6 +24,11 @@ export default function Dashboard({
   setEnrolling: (enrolling: boolean) => void;
   updateEnrollment: (courseId: string, enrolled: boolean) => void;
 }) {
+  const suggestCourse = async () => {
+    const c = await courseClient.suggestCourse(course.name, course.description);
+    const json = JSON.parse(c);
+    setCourse(json);
+  };
   return (
     <div id="wd-dashboard">
       <button
@@ -45,6 +52,12 @@ export default function Dashboard({
             setCourse({ ...course, description: e.target.value })
           }
         />
+        <button
+          onClick={suggestCourse}
+          className="btn btn-info text-white ms-2 float-end"
+        >
+          <IoSparkles />
+        </button>
         <button className="btn btn-primary float-end" onClick={addNewCourse}>
           Add
         </button>
